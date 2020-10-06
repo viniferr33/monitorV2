@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <title>Water APP Monitor - Login</title>
+</head>
+<body>
+
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <img src="static/icone_app_agua_2.png" alt="Logo Monitor" style="height: 200px; margin-top: 50px;">
+        </div>
+        <div class="row justify-content-center" style="margin-top: 50px;">
+            <h1>AquaNova</h1>
+        </div>
+        <div class="row justify-content-center" style="margin-top: 100px;">
+            <br><br>
+            <div class="col-6">
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="loginuser">User:</label>
+                    <input type="text" name="loginuser" id="loginuser" class="form-control">
+                    <br>
+                    <label for="loginpass">Password:</label>
+                    <input type="password" name="loginpass" id="loginpass" class="form-control">
+                    <br>
+                    <input type="text" name="login" value="login" hidden>
+                    <input type="submit" name="loginsubmit" id="loginsubmit" class="btn btn-primary btn-block" value="Login">
+                </div>
+            </form>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <p class="text-danger">{{msg}}</p>
+        </div>
+    </div>
+
+</body>
+
+<footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</footer>
+
+</html>
