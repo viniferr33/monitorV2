@@ -8,8 +8,5 @@ firebase_admin.initialize_app(cred)
 
 db = firestore.client()
 
-users_ref = db.collection(u'users')
-docs = users_ref.stream()
-
-for doc in docs:
-    print(u'{} => {}'.format(doc.id, doc.to_dict()))
+if __name__ == "__main__":
+    pass
