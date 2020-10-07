@@ -8,36 +8,46 @@
 
     <title>Water APP Monitor - Login</title>
 </head>
+
 <body>
 
-    <div class="container">
-        <div class="d-flex justify-content-center">
-            <img src="static/icone_app_agua_2.png" alt="Logo Monitor" style="height: 200px; margin-top: 50px;">
-        </div>
-        <div class="row justify-content-center" style="margin-top: 50px;">
-            <h1>AquaNova</h1>
-        </div>
-        <div class="row justify-content-center" style="margin-top: 100px;">
-            <br><br>
-            <div class="col-6">
-            <form action="#" method="POST">
-                <div class="form-group">
-                    <label for="loginuser">User:</label>
-                    <input type="text" name="loginuser" id="loginuser" class="form-control">
-                    <br>
-                    <label for="loginpass">Password:</label>
-                    <input type="password" name="loginpass" id="loginpass" class="form-control">
-                    <br>
-                    <input type="text" name="login" value="login" hidden>
-                    <input type="submit" name="loginsubmit" id="loginsubmit" class="btn btn-primary btn-block" value="Login">
-                </div>
-            </form>
+    <div class="container-fluid">
+        
+        <div class="row" style="min-height: 100vh;">
+
+            <div class="col-8" style="background-image: url('static/12007.jpg');">
+
             </div>
+
+            <div class="col-4">
+                
+                <div class="container">
+
+                    <img src="static/icone_app_agua_2.png" alt="Logo App" style="height: 120px; margin-top: 100px;">
+
+                </div>
+
+                <div class="container" style="margin-top: 150px;">
+
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            <label for="loginuser">User:</label>
+                            <input type="text" name="loginuser" id="loginuser" class="form-control">
+                            <br>
+                            <label for="loginpass">Password:</label>
+                            <input type="password" name="loginpass" id="loginpass" class="form-control">
+                            <br>
+                            <input type="text" name="login" id="login" value="login" hidden>
+                            <input type="submit" name="loginsubmit" id="loginsubmit" class="btn btn-primary btn-block" value="Login">
+                        </div>
+                    </form>
+
+                </div>
+                
+            </div>
+
         </div>
 
-        <div class="row justify-content-center">
-            <p class="text-danger">{{msg}}</p>
-        </div>
     </div>
 
 </body>

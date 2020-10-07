@@ -10,18 +10,18 @@ db = firestore.client()
 
 if __name__ == "__main__":
 
-    wtype = input("Digite o tipo: [news, warning, emergency] \n")
-    location = input("Digite a localização: \n")
-    title = input("Digite o Titulo de exibição: \n")
+    #wtype = input("Digite o tipo: [news, warning, emergency] \n")
+    #location = input("Digite a localização: \n")
+    #title = input("Digite o Titulo de exibição: \n")
     text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus metus dolor, placerat vel tortor quis, efficitur lobortis purus. Maecenas convallis nibh velit, ac tincidunt neque posuere vitae."
-    print("Your text is: " + text)
-    date = input("Digite a data: YYYY-MM-DD: \n")
+    #print("Your text is: " + text)
+    #date = input("Digite a data: YYYY-MM-DD: \n")
 
-    doc_ref = db.collection(u'warnings').document(location).collection(wtype)
+    doc_ref = db.collection('news')
     doc_ref.add({
-        u'title': title,
+        u'title': input("digite"),
         u'text': text,
-        u'date': date
+        u'date': '2020-10-06'
     })
 
 

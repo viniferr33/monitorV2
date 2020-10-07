@@ -9,4 +9,8 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 if __name__ == "__main__":
-    pass
+    doc_ref = db.collection('news')
+    docs = doc_ref.stream()
+
+    for doc in docs:
+        print("{} => {}".format(doc.id, doc.to_dict()))

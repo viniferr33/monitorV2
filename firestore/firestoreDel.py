@@ -14,5 +14,5 @@ if __name__ == "__main__":
     location = input("Digite a localização: \n")
     docId = '' 
     
-    db.collection(u'warnings').document(wtype).collection(location).document(docId).delete()
+    db.collection(u'warnings').document(location).collection(wtype).document(docId).delete()
  
