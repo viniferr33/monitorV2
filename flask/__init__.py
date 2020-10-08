@@ -33,9 +33,52 @@ def home():
 @app.route("/monitor", methods=["POST", "GET"])
 def monitor():
 
-    tldata = fs.getAll('news')
+    if request.method == "POST":
+
+        if request.form.get('update'):
+            pass
+
+        if request.form.get('deleteNews'):
+            pass
+
+        if request.form.get('deleteWarning'):
+            pass
+
+        if request.form.get('deleteEmergency'):
+            pass
+        
+        if request.form.get('news'):
+            title = request.form['tl_form_title']
+            text = request.form['tl_form_desc']
+            location = request.form['tl_form_location']
+            date_i = request.form['tl_form_date_i']
+            date_f = request.form['tl_form_date_f']
+
+            fs.addWarning(location, 'news', title, text, date_i, date_f)
+
+        if request.form.get('warnings'):
+            title = request.form['tl_form_title']
+            text = request.form['tl_form_desc']
+            location = request.form['tl_form_location']
+            date_i = request.form['tl_form_date_i']
+            date_f = request.form['tl_form_date_f']
+
+            fs.addWarning(location, 'warnings', title, text, date_i, date_f)
+
+        if request.form.get('emergency'):
+            title = request.form['tl_form_title']
+            text = request.form['tl_form_desc']
+            location = request.form['tl_form_location']
+            date_i = request.form['tl_form_date_i']
+            date_f = request.form['tl_form_date_f']
+
+            fs.addWarning(location, 'emergency', title, text, date_i, date_f)
+
+    emergency = fs.getAll('emergency')
+    warnings = fs.getAll('warnings')
+    news = fs.getAll('news')
     dis_list = getDistList()
-    return render_template("index.html", dis_list=dis_list, tldata=tldata), 200
+    return render_template("monitor.html", dis_list=dis_list, news=news, emergency=emergency, warnings=warnings), 200
 
 
 # # A func to get all districts from a txt # # #

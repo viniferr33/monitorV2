@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <title>Water APP Monitor</title>
+</head>
+
+<body>
+
+  <div class="container-fluid" style="padding-left: 50px; padding-right: 50px;">
+
+      <div class="row" style="min-height: 95vh;">
+
+          <div class="col-3" style="margin-top: 40px;">
+            <img src="static/icone_app_agua_2.png" alt="" style="width: 100%;">
+            <hr>
+              <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-general" role="tab" aria-controls="v-pills-general" aria-selected="true">Visão Geral</a>
+                <a class="nav-link" id="v-pills-news-tab" data-toggle="pill" href="#v-pills-news" role="tab" aria-controls="v-pills-news" aria-selected="false">Notícias</a>
+                <a class="nav-link" id="v-pills-warnings-tab" data-toggle="pill" href="#v-pills-warnings" role="tab" aria-controls="v-pills-warnings" aria-selected="false">Avisos</a>
+                <a class="nav-link" id="v-pills-emergency-tab" data-toggle="pill" href="#v-pills-emergency" role="tab" aria-controls="v-pills-emergency" aria-selected="false">Emergências</a>
+                <a class="nav-link" id="v-pills-reports-tab" data-toggle="pill" href="#v-pills-reports" role="tab" aria-controls="v-pills-reports" aria-selected="false">Denuncias</a>
+                <a class="nav-link" id="v-pills-admin-tab" data-toggle="pill" href="#v-pills-admin" role="tab" aria-controls="v-pills-admin" aria-selected="false">Admin</a>
+              </div>
+
+            <form action="#" method="POST" style="padding-top: 100%;">
+                <input type="text" name="logout" id="logout" value="logout" hidden>
+                <input type="submit" name="logoutBtn" id="logoutBtn" class="btn btn-secondary btn-block" value="Logout">
+            </form>
+
+          </div>
+
+          <div class="col-9" style="border-left: 1px solid lightgray; margin-top: 40px;">
+              <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-general" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                    <h1 class="text-center">Painel de Controle</h1>
+                    <hr>
+                </div><!--HOME-->
+                <div class="tab-pane fade" id="v-pills-news" role="tabpanel" aria-labelledby="v-pills-news-tab">
+                    <h1 class="text-center">Notícias</h1>
+                    <hr>
+                    <div class="row">
+                        <br>    
+                        <div class="container">
+                            <form action="" method="POST">
+                              <button style="width: 74%;" class="btn btn-info" data-toggle="modal" data-target="#addNews">Adicionar</button>
+                              <button style="width: 15%;" class="btn btn-secondary" type="submit" value="update" name="update" id="update">Atualizar</button>
+                              <button style="width: 10%;" class="btn btn-danger" type="submit" value="deleteNews" name="deleteNews" id="deleteNews">Excluir</button>
+                            </form>
+                        </div>
+                        <!--MODAL NEWS-->
+                        <div class="modal fade" id="addNews" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="staticBackdropLabel">Adicionar Notícia</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <form action="" method="POST">
+                                  <div class="modal-body">
+                                    <label for="tl_form_title">Título da Notícia</label>
+                                    <input type="text" name="tl_form_title" id="tl_form_title" class="form-control" aria-describedby="titleHelp">
+                                    <small class="form-text text-muted" id="titleHelp">Este campo define o título que será exibido no aplicativo.</small>
+                                    
+                                    <br>
+                                    <label for="tl_form_desc">Descrição</label>
+                                    <textarea class="form-control" name="tl_form_desc" id="tl_form_desc" rows="3"></textarea>
+            
+                                    <br>
+                                    <label for="tl_form_location">Local afetado</label>
+                                    <select class="form-control" id="tl_form_location" name="tl_form_location">
+                                      {% for i in dis_list: %}
+                                      <option value="{{i}}">{{i}}</option>
+                                      {% endfor %}
+                                    </select>
+                                    <small class="form-text text-muted">Este campo define a região afetada pelo aviso</small>
+            
+                                    <br>
+                                    <label for="tl_form_date_i">Data inicial</label>
+                                    <input type="date" name="tl_form_date_i" id="tl_form_date_i" class="form-control" aria-describedby="dateHelp">
+                                    <small class="form-text text-muted" id="dateHelp">Este campo define a data de ocorrência do aviso.</small>
+                                    
+                                    <br>
+                                    <label for="tl_form_date_f">Data final</label>
+                                    <input type="date" name="tl_form_date_f" id="tl_form_date_f" class="form-control" aria-describedby="dateHelp">
+                                    <small class="form-text text-muted" id="dateHelp">Este campo define a data de ocorrência do aviso.</small>
+                                    
+            
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <input type="text"  name="news"  value="news" hidden>
+                                    <input type="submit" name="add" class="btn btn-success" value="Adicionar">
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                        </div>
+
+                    </div><!--ROW-->
+                    <br>
+                    <div class="row">
+                        
+                        <div class="container">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Título</th>
+                                        <th scope="col" class="text-center">Texto</th>
+                                        <th scope="col">Localização</th>
+                                        <th scope="col">Data inicial</th>
+                                        <th scope="col">Data final</th>
+                                        <th scope="col">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  {% for i in news: %}
+                                  <tr>
+                                      <th scope="row">
+                                        <button class="btn btn-secondary">
+                                          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                            <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                            <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+                                            <circle cx="8" cy="4.5" r="1"/>
+                                          </svg>
+                                        </button>
+                                      </th>
+                                      
+                                      <td>{{ news[i]['title'] }}</td>
+                                      <td>{{ news[i]['text'] }}</td>
+                                      <td>{{ news[i]['location'] }}</td>
+                                      <td>{{ news[i]['date'] }}</td>
+                                      <td>{{ news[i]['exp_date'] }}</td>
+                                      
+                                      <td>
+                                        <button class="btn btn-danger">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                        </svg>
+                                        </button>
+                                      </td>
+
+                                  </tr>
+                                  {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div><!--ROW-->
+                </div><!--NEWS-->
+                <div class="tab-pane fade" id="v-pills-warnings" role="tabpanel" aria-labelledby="v-pills-warnings-tab">
+                    <h1 class="text-center">Avisos</h1>
+                    <hr>
+                    <div class="row">
+                        <br>
+                        <div class="container">
+                          <form action="" method="POST">  
+                            <button style="width: 74%;" class="btn btn-info" data-toggle="modal" data-target="#addWarning">Adicionar</button>
+                            <button style="width: 15%;" class="btn btn-secondary" type="submit" value="update" name="update" id="update">Atualizar</button>
+                            <button style="width: 10%;" class="btn btn-danger" type="submit" value="deleteWarning" name="deleteWarning" id="deleteWarning">Excluir</button>
+                          </form>
+                          </div>
+                        <!--MODAL WARNING-->
+                        <div class="modal fade" id="addWarning" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="staticBackdropLabel">Adicionar Novo Aviso</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <form action="" method="POST">
+                                  <div class="modal-body">
+                                    <label for="tl_form_title">Título do Aviso</label>
+                                    <input type="text" name="tl_form_title" id="tl_form_title" class="form-control" aria-describedby="titleHelp">
+                                    <small class="form-text text-muted" id="titleHelp">Este campo define o título que será exibido no aplicativo.</small>
+                                    
+                                    <br>
+                                    <label for="tl_form_desc">Descrição</label>
+                                    <textarea class="form-control" name="tl_form_desc" id="tl_form_desc" rows="3"></textarea>
+            
+                                    <br>
+                                    <label for="tl_form_location">Local afetado</label>
+                                    <select class="form-control" id="tl_form_location" name="tl_form_location">
+                                      {% for i in dis_list: %}
+                                      <option value="{{i}}">{{i}}</option>
+                                      {% endfor %}
+                                    </select>
+                                    <small class="form-text text-muted">Este campo define a região afetada pelo aviso</small>
+            
+                                    <br>
+                                    <label for="tl_form_date_i">Data inicial</label>
+                                    <input type="date" name="tl_form_date_i" id="tl_form_date_i" class="form-control" aria-describedby="dateHelp">
+                                    <small class="form-text text-muted" id="dateHelp">Este campo define a data de ocorrência do aviso.</small>
+                                    
+                                    <br>
+                                    <label for="tl_form_date_f">Data final</label>
+                                    <input type="date" name="tl_form_date_f" id="tl_form_date_f" class="form-control" aria-describedby="dateHelp">
+                                    <small class="form-text text-muted" id="dateHelp">Este campo define a data de ocorrência do aviso.</small>
+                                    
+            
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <input type="text"  name="warnings"  value="warnings" hidden>
+                                    <input type="submit" name="add" class="btn btn-success" value="Adicionar">
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                        </div>
+                        
+                    </div><!--ROW-->
+                    <br>
+                    <div class="row">
+
+                        <div class="container">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Título</th>
+                                        <th scope="col" class="text-center">Texto</th>
+                                        <th scope="col">Localização</th>
+                                        <th scope="col">Data inicial</th>
+                                        <th scope="col">Data final</th>
+                                        <th scope="col">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                      {% for i in warnings: %}
+                                      <tr>
+                                          <th scope="row">{{ i }}</th>
+                                          <td>{{ warnings[i]['title'] }}</td>
+                                          <td>{{ warnings[i]['text'] }}</td>
+                                          <td>{{ warnings[i]['location'] }}</td>
+                                          <td>{{ warnings[i]['date'] }}</td>
+                                          <td>{{ warnings[i]['exp_date'] }}</td>
+                                          
+                                          <td>
+                                              <button class="btn btn-danger">
+                                              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                              <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                              </svg>
+                                              </button>
+                                          </td>
+                                      </tr>
+                                      {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div><!--ROW-->
+                </div><!--WARNINGS-->
+                <div class="tab-pane fade" id="v-pills-emergency" role="tabpanel" aria-labelledby="v-pills-emergency-tab">
+                    <h1 class="text-center">Emergências</h1>
+                    <hr>
+                    <div class="row">
+                        <br>
+                        <div class="container">
+                          <form action="" method="POST">  
+                            <button style="width: 74%;" class="btn btn-info" data-toggle="modal" data-target="#addEmergency">Adicionar</button>
+                            <button style="width: 15%;" class="btn btn-secondary" type="submit" value="update" name="update" id="update">Atualizar</button>
+                            <button style="width: 10%;" class="btn btn-danger" type="submit" value="deleteEmergency" name="deleteEmergency" id="deleteEmergency">Excluir</button>
+                          </form>
+                        </div>
+                        <!--MODAL NEWS-->
+                        <div class="modal fade" id="addEmergency" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="staticBackdropLabel">Adicionar Emergência</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <form action="" method="POST">
+                                  <div class="modal-body">
+                                    <label for="tl_form_title">Título da Emergência</label>
+                                    <input type="text" name="tl_form_title" id="tl_form_title" class="form-control" aria-describedby="titleHelp">
+                                    <small class="form-text text-muted" id="titleHelp">Este campo define o título que será exibido no aplicativo.</small>
+                                    
+                                    <br>
+                                    <label for="tl_form_desc">Descrição</label>
+                                    <textarea class="form-control" name="tl_form_desc" id="tl_form_desc" rows="3"></textarea>
+            
+                                    <br>
+                                    <label for="tl_form_location">Local afetado</label>
+                                    <select class="form-control" id="tl_form_location" name="tl_form_location">
+                                      {% for i in dis_list: %}
+                                      <option value="{{i}}">{{i}}</option>
+                                      {% endfor %}
+                                    </select>
+                                    <small class="form-text text-muted">Este campo define a região afetada pelo aviso</small>
+            
+                                    <br>
+                                    <label for="tl_form_date_i">Data inicial</label>
+                                    <input type="date" name="tl_form_date_i" id="tl_form_date_i" class="form-control" aria-describedby="dateHelp">
+                                    <small class="form-text text-muted" id="dateHelp">Este campo define a data de ocorrência do aviso.</small>
+                                    
+                                    <br>
+                                    <label for="tl_form_date_f">Data final</label>
+                                    <input type="date" name="tl_form_date_f" id="tl_form_date_f" class="form-control" aria-describedby="dateHelp">
+                                    <small class="form-text text-muted" id="dateHelp">Este campo define a data de ocorrência do aviso.</small>
+                                    
+            
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <input type="text"  name="emergency"  value="emergency" hidden>
+                                    <input type="submit" name="add" class="btn btn-success" value="Adicionar">
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                        </div>
+                        
+                    </div><!--ROW-->
+                    <br>
+                    <div class="row">
+
+                        <div class="container">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Título</th>
+                                        <th scope="col" class="text-center">Texto</th>
+                                        <th scope="col">Localização</th>
+                                        <th scope="col">Data inicial</th>
+                                        <th scope="col">Data final</th>
+                                        <th scope="col">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i in emergency: %}
+                                    <tr>
+                                        <th scope="row">{{ i }}</th>
+                                        <td>{{ emergency[i]['title'] }}</td>
+                                        <td>{{ emergency[i]['text'] }}</td>
+                                        <td>{{ emergency[i]['location'] }}</td>
+                                        <td>{{ emergency[i]['date'] }}</td>
+                                        <td>{{ emergency[i]['exp_date'] }}</td>
+                                        
+                                        <td>
+                                          <button class="btn btn-danger">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                            </svg>
+                                            </button>
+                                        </td>
+
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div><!--ROW-->
+                </div><!--EMERGENCY-->
+                <div class="tab-pane fade" id="v-pills-reports" role="tabpanel" aria-labelledby="v-pills-reports-tab">
+                    <h1 class="text-center">Denúncias</h1>
+                    <hr>
+
+                    <div class="row">
+                        <br>
+                        <div class="container">
+                            <form action="">
+                                <input type="text" name="reportQuery" id="reportQuery" class="form-group" style="width: 95%;">
+                                <button role="button" class="btn btn-info" style="width: 4%;"><input type="submit" name="reportSearch" id="reportSearch" hidden>
+                                    
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                                        <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                                    </svg>
+
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="container">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">User Id</th>
+                                        <th scope="col">Remetente</th>
+                                        <th scope="col">Localização</th>
+                                        <th scope="col">Descrição</th>
+                                        <th scope="col">Data</th>
+                                        <th scope="col">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+    
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>    
+                    </div>
+                    
+                </div><!--REPORTS-->
+                <div class="tab-pane fade" id="v-pills-admin" role="tabpanel" aria-labelledby="v-pills-admin-tab">
+                    <h1 class="text-center">Administrar usuários</h1>
+                    <hr>
+
+                    <div class="row">
+
+                    </div>
+
+                    <div class="row">
+
+                        <table>
+                            
+                        </table>
+
+                    </div>
+
+                </div><!--ADMIN-->
+              </div>
+          </div>
+
+      </div>
+
+  </div>
+
+</body>
+
+<footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</footer>
+
+</html>
