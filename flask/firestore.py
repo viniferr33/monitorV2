@@ -53,11 +53,10 @@ class FSHandler():
 
         return docs
 
-    def deleteData(self, collection, location, wtype, docId):
+    def deleteData(self, wtype, docId):
         ### A method to delete data from FireStore ###
         db = self.db
-        db.collection(collection).document(
-            location).collection(wtype).document(docId).delete()
+        db.collection(wtype).document(docId).delete()
 
 
 if __name__ == "__main__":

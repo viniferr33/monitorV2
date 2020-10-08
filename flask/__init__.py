@@ -39,13 +39,16 @@ def monitor():
             pass
 
         if request.form.get('deleteNews'):
-            pass
+            doc_id = request.form['deleteNews']
+            fs.deleteData('news', doc_id)
 
         if request.form.get('deleteWarning'):
-            pass
+            doc_id = request.form['deleteWarning']
+            fs.deleteData('warnings', doc_id)
 
         if request.form.get('deleteEmergency'):
-            pass
+            doc_id = request.form['deleteEmergency']
+            fs.deleteData('emergency', doc_id)
         
         if request.form.get('news'):
             title = request.form['tl_form_title']

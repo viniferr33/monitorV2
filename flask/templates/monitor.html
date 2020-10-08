@@ -43,15 +43,17 @@
                 <div class="tab-pane fade" id="v-pills-news" role="tabpanel" aria-labelledby="v-pills-news-tab">
                     <h1 class="text-center">Notícias</h1>
                     <hr>
-                    <div class="row">
-                        <br>    
-                        <div class="container">
+                    <div class="row justify-content-center">
+                      <br>
+                      <div class="col-8">
+                          <button class="btn btn-info btn-block" data-toggle="modal" data-target="#addNews">Adicionar</button>
+                      </div>
+                          
+                      <div class="col-2">
                             <form action="" method="POST">
-                              <button style="width: 74%;" class="btn btn-info" data-toggle="modal" data-target="#addNews">Adicionar</button>
-                              <button style="width: 15%;" class="btn btn-secondary" type="submit" value="update" name="update" id="update">Atualizar</button>
-                              <button style="width: 10%;" class="btn btn-danger" type="submit" value="deleteNews" name="deleteNews" id="deleteNews">Excluir</button>
+                              <input type="submit" name="update" class="btn btn-block btn-secondary" id="update" value="Atualizar">
                             </form>
-                        </div>
+                      </div>
                         <!--MODAL NEWS-->
                         <div class="modal fade" id="addNews" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog">
@@ -141,12 +143,14 @@
                                       <td>{{ news[i]['exp_date'] }}</td>
                                       
                                       <td>
-                                        <button class="btn btn-danger">
+                                        <form action="" method="POST">
+                                        <button class="btn btn-danger" type="submit" name="deleteNews" id="del" value="{{ i }}">
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                                         <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
                                         </svg>
                                         </button>
+                                        </form>
                                       </td>
 
                                   </tr>
@@ -160,15 +164,17 @@
                 <div class="tab-pane fade" id="v-pills-warnings" role="tabpanel" aria-labelledby="v-pills-warnings-tab">
                     <h1 class="text-center">Avisos</h1>
                     <hr>
-                    <div class="row">
+                    <div class="row justify-content-center">
                         <br>
-                        <div class="container">
-                          <form action="" method="POST">  
-                            <button style="width: 74%;" class="btn btn-info" data-toggle="modal" data-target="#addWarning">Adicionar</button>
-                            <button style="width: 15%;" class="btn btn-secondary" type="submit" value="update" name="update" id="update">Atualizar</button>
-                            <button style="width: 10%;" class="btn btn-danger" type="submit" value="deleteWarning" name="deleteWarning" id="deleteWarning">Excluir</button>
-                          </form>
-                          </div>
+                        <div class="col-8">
+                          <button class="btn btn-info btn-block" data-toggle="modal" data-target="#addNews">Adicionar</button>
+                      </div>
+                          
+                      <div class="col-2">
+                            <form action="" method="POST">
+                              <input type="submit" name="update" class="btn btn-block btn-secondary" id="update" value="Atualizar">
+                            </form>
+                      </div>
                         <!--MODAL WARNING-->
                         <div class="modal fade" id="addWarning" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog">
@@ -248,12 +254,14 @@
                                           <td>{{ warnings[i]['exp_date'] }}</td>
                                           
                                           <td>
-                                              <button class="btn btn-danger">
+                                            <form action="" method="POST">
+                                              <button class="btn btn-danger type="submit" name="deleleWarning" value="{{ i }}"">
                                               <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                               <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                                               <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
                                               </svg>
                                               </button>
+                                            </form>
                                           </td>
                                       </tr>
                                       {% endfor %}
@@ -266,15 +274,17 @@
                 <div class="tab-pane fade" id="v-pills-emergency" role="tabpanel" aria-labelledby="v-pills-emergency-tab">
                     <h1 class="text-center">Emergências</h1>
                     <hr>
-                    <div class="row">
+                    <div class="row justify-content-center">
                         <br>
-                        <div class="container">
-                          <form action="" method="POST">  
-                            <button style="width: 74%;" class="btn btn-info" data-toggle="modal" data-target="#addEmergency">Adicionar</button>
-                            <button style="width: 15%;" class="btn btn-secondary" type="submit" value="update" name="update" id="update">Atualizar</button>
-                            <button style="width: 10%;" class="btn btn-danger" type="submit" value="deleteEmergency" name="deleteEmergency" id="deleteEmergency">Excluir</button>
-                          </form>
-                        </div>
+                        <div class="col-8">
+                          <button class="btn btn-info btn-block" data-toggle="modal" data-target="#addNews">Adicionar</button>
+                      </div>
+                          
+                      <div class="col-2">
+                            <form action="" method="POST">
+                              <input type="submit" name="update" class="btn btn-block btn-secondary" id="update" value="Atualizar">
+                            </form>
+                      </div>
                         <!--MODAL NEWS-->
                         <div class="modal fade" id="addEmergency" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog">
@@ -354,12 +364,14 @@
                                         <td>{{ emergency[i]['exp_date'] }}</td>
                                         
                                         <td>
-                                          <button class="btn btn-danger">
+                                          <form action="" method="POST">
+                                          <button class="btn btn-danger" type="submit" name="deleleteEmergency" id="del" value="{{ i }}">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                                             <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
                                             </svg>
                                             </button>
+                                          </form>
                                         </td>
 
                                     </tr>
