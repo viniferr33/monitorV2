@@ -14,18 +14,32 @@ class FSHandler():
 
     db = firestore.client()
 
-    def addWarning(self, location, wtype, title, text, date, exp_date):
+    def addWarning(self, location, wtype, title, text, date, exp_date, ext_link=None):
         ### A method to add documents to warning collection of FireStore ###
         db = self.db
         doc_ref = db.collection(wtype)
-        doc_ref.add({
-            u'location': location,
-            u'title': title,
-            u'text': text,
-            u'date': date,
-            u'exp_date': exp_date,
-            u'timestamp': firestore.SERVER_TIMESTAMP
-        })
+        
+        if(ext_link == None):
+            doc_ref.add({
+                u'location': location,
+                u'title': title,
+                u'text': text,
+                u'date': date,
+                u'exp_date': exp_date,
+                u'timestamp': firestore.SERVER_TIMESTAMP
+            })
+
+        else:
+            doc_ref.add({
+                u'location': location,
+                u'title': title,
+                u'text': text,
+                u'date': date,
+                u'exp_date': exp_date,
+                u'ext_link': ext_link,
+                u'timestamp': firestore.SERVER_TIMESTAMP
+
+            })
 
     def filterData(self, location, wtype, date):
         ### A method to get data from FireStore ###
@@ -69,7 +83,6 @@ if __name__ == "__main__":
     exp_date = '2020-10-15'
 
     fs = FSHandler()
-    fs.addWarning(location, wtype, title, text, date, exp_date)
 
     docs = fs.getAll('news')
 

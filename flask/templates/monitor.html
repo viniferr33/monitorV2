@@ -82,7 +82,12 @@
                                       {% endfor %}
                                     </select>
                                     <small class="form-text text-muted">Este campo define a região afetada pelo aviso</small>
-            
+                              
+                                    <br>
+                                    <label for="tl_form_link">Link Externo</label>
+                                    <input type="text" name="tl_form_link" id="tl_form_link" class="form-control" aria-describedby="linkHelp">
+                                    <small class="form-text text-muted" id="linkHelp">Este campo define um URL externo para a fonte da notícia</small>
+
                                     <br>
                                     <label for="tl_form_date_i">Data inicial</label>
                                     <input type="date" name="tl_form_date_i" id="tl_form_date_i" class="form-control" aria-describedby="dateHelp">
@@ -113,7 +118,6 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Id</th>
                                         <th scope="col">Título</th>
                                         <th scope="col" class="text-center">Texto</th>
                                         <th scope="col">Localização</th>
@@ -125,17 +129,7 @@
                                 <tbody>
                                   {% for i in news: %}
                                   <tr>
-                                      <th scope="row">
-                                        <button class="btn btn-secondary">
-                                          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                                            <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                                            <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
-                                            <circle cx="8" cy="4.5" r="1"/>
-                                          </svg>
-                                        </button>
-                                      </th>
-                                      
+                                                                            
                                       <td>{{ news[i]['title'] }}</td>
                                       <td>{{ news[i]['text'] }}</td>
                                       <td>{{ news[i]['location'] }}</td>
@@ -167,7 +161,7 @@
                     <div class="row justify-content-center">
                         <br>
                         <div class="col-8">
-                          <button class="btn btn-info btn-block" data-toggle="modal" data-target="#addNews">Adicionar</button>
+                          <button class="btn btn-info btn-block" data-toggle="modal" data-target="#addWarning">Adicionar</button>
                       </div>
                           
                       <div class="col-2">
@@ -203,7 +197,12 @@
                                       {% endfor %}
                                     </select>
                                     <small class="form-text text-muted">Este campo define a região afetada pelo aviso</small>
-            
+                                    
+                                    <br>
+                                    <label for="tl_form_link">Link Externo</label>
+                                    <input type="text" name="tl_form_link" id="tl_form_link" class="form-control" aria-describedby="linkHelp">
+                                    <small class="form-text text-muted" id="linkHelp">Este campo define um URL externo para a fonte da notícia</small>
+
                                     <br>
                                     <label for="tl_form_date_i">Data inicial</label>
                                     <input type="date" name="tl_form_date_i" id="tl_form_date_i" class="form-control" aria-describedby="dateHelp">
@@ -234,7 +233,6 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Id</th>
                                         <th scope="col">Título</th>
                                         <th scope="col" class="text-center">Texto</th>
                                         <th scope="col">Localização</th>
@@ -246,7 +244,6 @@
                                 <tbody>
                                       {% for i in warnings: %}
                                       <tr>
-                                          <th scope="row">{{ i }}</th>
                                           <td>{{ warnings[i]['title'] }}</td>
                                           <td>{{ warnings[i]['text'] }}</td>
                                           <td>{{ warnings[i]['location'] }}</td>
@@ -255,7 +252,7 @@
                                           
                                           <td>
                                             <form action="" method="POST">
-                                              <button class="btn btn-danger type="submit" name="deleleWarning" value="{{ i }}"">
+                                              <button class="btn btn-danger type="submit" name="deleteWarning" value="{{ i }}"">
                                               <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                               <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                                               <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
@@ -277,7 +274,7 @@
                     <div class="row justify-content-center">
                         <br>
                         <div class="col-8">
-                          <button class="btn btn-info btn-block" data-toggle="modal" data-target="#addNews">Adicionar</button>
+                          <button class="btn btn-info btn-block" data-toggle="modal" data-target="#addEmergency">Adicionar</button>
                       </div>
                           
                       <div class="col-2">
@@ -313,6 +310,11 @@
                                       {% endfor %}
                                     </select>
                                     <small class="form-text text-muted">Este campo define a região afetada pelo aviso</small>
+                                    
+                                    <br>
+                                    <label for="tl_form_link">Link Externo</label>
+                                    <input type="text" name="tl_form_link" id="tl_form_link" class="form-control" aria-describedby="linkHelp">
+                                    <small class="form-text text-muted" id="linkHelp">Este campo define um URL externo para a fonte da notícia</small>
             
                                     <br>
                                     <label for="tl_form_date_i">Data inicial</label>
@@ -344,7 +346,6 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Id</th>
                                         <th scope="col">Título</th>
                                         <th scope="col" class="text-center">Texto</th>
                                         <th scope="col">Localização</th>
@@ -356,7 +357,6 @@
                                 <tbody>
                                     {% for i in emergency: %}
                                     <tr>
-                                        <th scope="row">{{ i }}</th>
                                         <td>{{ emergency[i]['title'] }}</td>
                                         <td>{{ emergency[i]['text'] }}</td>
                                         <td>{{ emergency[i]['location'] }}</td>
@@ -365,7 +365,7 @@
                                         
                                         <td>
                                           <form action="" method="POST">
-                                          <button class="btn btn-danger" type="submit" name="deleleteEmergency" id="del" value="{{ i }}">
+                                          <button class="btn btn-danger" type="submit" name="deleteEmergency" id="del" value="{{ i }}">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                                             <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
@@ -413,13 +413,18 @@
                                         <th scope="col">Localização</th>
                                         <th scope="col">Descrição</th>
                                         <th scope="col">Data</th>
-                                        <th scope="col">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                  {% for i in reports: %}
                                     <tr>
-    
+                                      <td>{{ reports[i]['id'] }}</td>
+                                      <td>{{ reports[i]['name'] }}</td>
+                                      <td>{{ reports[i]['location'] }}</td>
+                                      <td>{{ reports[i]['desc'] }}</td>
+                                      <td>{{ reports[i]['date'] }}</td>
                                     </tr>
+                                  {% endfor %}
                                 </tbody>
                             </table>
                         </div>    

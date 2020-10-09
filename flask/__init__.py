@@ -1,3 +1,4 @@
+from flask_login import LoginManager
 from flask import Flask, render_template, request, session, redirect, url_for
 from varHolder import secret_key
 from firestore import FSHandler
@@ -5,6 +6,13 @@ from firestore import FSHandler
 fs = FSHandler()
 app = Flask(__name__)  # Create a new Flask object
 app.secret_key = secret_key
+
+# # # Sets up login settings and handlers # # #
+#login_manager = LoginManager()
+#login_manager.init_app(app)
+
+# # Sets the blueprints # #
+
 
 # # # Login screen # # #
 @app.route("/", methods=["POST", "GET"])
@@ -54,34 +62,38 @@ def monitor():
             title = request.form['tl_form_title']
             text = request.form['tl_form_desc']
             location = request.form['tl_form_location']
+            ext_link = request.form['tl_form_link']
             date_i = request.form['tl_form_date_i']
             date_f = request.form['tl_form_date_f']
 
-            fs.addWarning(location, 'news', title, text, date_i, date_f)
+            fs.addWarning(location, 'news', title, text, date_i, date_f, ext_link)
 
         if request.form.get('warnings'):
             title = request.form['tl_form_title']
             text = request.form['tl_form_desc']
             location = request.form['tl_form_location']
+            ext_link = request.form['tl_form_link']
             date_i = request.form['tl_form_date_i']
             date_f = request.form['tl_form_date_f']
 
-            fs.addWarning(location, 'warnings', title, text, date_i, date_f)
+            fs.addWarning(location, 'warnings', title, text, date_i, date_f, ext_link)
 
         if request.form.get('emergency'):
             title = request.form['tl_form_title']
             text = request.form['tl_form_desc']
             location = request.form['tl_form_location']
+            ext_link = request.form['tl_form_link']
             date_i = request.form['tl_form_date_i']
             date_f = request.form['tl_form_date_f']
 
-            fs.addWarning(location, 'emergency', title, text, date_i, date_f)
+            fs.addWarning(location, 'emergency', title, text, date_i, date_f, ext_link)
 
+    reports = fs.getAll('reports')
     emergency = fs.getAll('emergency')
     warnings = fs.getAll('warnings')
     news = fs.getAll('news')
     dis_list = getDistList()
-    return render_template("monitor.html", dis_list=dis_list, news=news, emergency=emergency, warnings=warnings), 200
+    return render_template("monitor.html", dis_list=dis_list, news=news, emergency=emergency, warnings=warnings, reports=reports), 200
 
 
 # # A func to get all districts from a txt # # #
