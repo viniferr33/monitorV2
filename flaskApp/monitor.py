@@ -1,41 +1,5 @@
-from flask_login import LoginManager
-from flask import Flask, render_template, request, session, redirect, url_for
-from varHolder import secret_key
-from firestore import FSHandler
-
-fs = FSHandler()
-app = Flask(__name__)  # Create a new Flask object
-app.secret_key = secret_key
-
-# # # Sets up login settings and handlers # # #
-#login_manager = LoginManager()
-#login_manager.init_app(app)
-
-# # Sets the blueprints # #
-
-
-# # # Login screen # # #
-@app.route("/", methods=["POST", "GET"])
-def home():
-
-    msg = ""
-
-    if request.method == "POST":
-
-        if request.form.get('login'):
-
-            user = request.form['loginuser']
-            password = request.form['loginpass']
-
-            if user == "admin" and password == "mcpoze":
-                session["user"] = user
-                return redirect(url_for("monitor"))
-
-            else:
-                msg = "Usuário ou senha inválidos!!"
-
-    return render_template("login.html", msg=msg)
-
+from app import app, fs
+from flask import request, redirect, render_template, url_for
 
 # # # Monitor # # #
 @app.route("/monitor", methods=["POST", "GET"])
@@ -104,7 +68,3 @@ def getDistList():
             districts.append(line.rstrip("\n"))
 
     return districts
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
