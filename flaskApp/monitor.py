@@ -1,9 +1,16 @@
 from app import app, fs
-from flask import request, redirect, render_template, url_for
+from flask import request, redirect, render_template, url_for, Blueprint
+
+monitor_bp = Blueprint('monitor', __name__)
 
 # # # Monitor # # #
 @app.route("/monitor", methods=["POST", "GET"])
 def monitor():
+
+    adminLog = {
+        'hidden': 'hidden',
+        'warning': ''
+    }
 
     if request.method == "POST":
 
@@ -51,13 +58,19 @@ def monitor():
             date_f = request.form['tl_form_date_f']
 
             fs.addWarning(location, 'emergency', title, text, date_i, date_f, ext_link)
+        
+        if request.form.get('addAdmin'):
+            email = request.form['email']
+            name = request.form['name']
+            password = request.form['password']
+            rtPass = request.form['retype_pass']
 
     reports = fs.getAll('reports')
     emergency = fs.getAll('emergency')
     warnings = fs.getAll('warnings')
     news = fs.getAll('news')
     dis_list = getDistList()
-    return render_template("monitor.html", dis_list=dis_list, news=news, emergency=emergency, warnings=warnings, reports=reports), 200
+    return render_template("monitor.html", dis_list=dis_list, news=news, emergency=emergency, warnings=warnings, reports=reports, adminLog=adminLog), 200
 
 
 # # A func to get all districts from a txt # # #

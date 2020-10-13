@@ -1,5 +1,7 @@
 from app import app
-from flask import request, redirect, render_template, url_for
+from flask import request, redirect, render_template, url_for, Blueprint
+
+login = Blueprint('login', __name__)
 
 # # # Login screen # # #
 @app.route("/", methods=["POST", "GET"])

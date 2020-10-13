@@ -432,20 +432,109 @@
                     
                 </div><!--REPORTS-->
                 <div class="tab-pane fade" id="v-pills-admin" role="tabpanel" aria-labelledby="v-pills-admin-tab">
-                    <h1 class="text-center">Administrar usuários</h1>
+                    <h1 class="text-center">Administração</h1>
                     <hr>
 
-                    <div class="row">
-
+                    <div class="row justify-content-center">
+                      <br>
+                      <div class="col-8">
+                        <button class="btn btn-info btn-block" data-toggle="modal" data-target="#addAdmn">Adicionar Administrador</button>
                     </div>
-
-                    <div class="row">
-
-                        <table>
-                            
-                        </table>
-
+                        
+                    <div class="col-2">
+                          <form action="" method="POST">
+                            <input type="submit" name="update" class="btn btn-block btn-secondary" id="update" value="Atualizar">
+                          </form>
                     </div>
+                      <!--MODAL NEWS-->
+                      <div class="modal fade" id="addAdmn" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Adicionar Administrador</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <form action="" method="POST">
+                                <div class="modal-body">
+                                  
+                                  <div class="alert alert-danger" role="alert" {{ adminLog['hidden'] }}>
+                                    {{ adminLog['warning'] }}
+                                  </div>
+
+                                  <label for="email">Email</label>
+                                  <input type="text" name="email" id="email" class="form-control" aria-describedby="emailHelp">
+                                  <small class="form-text text-muted" id="emailHelp">Insira seu email.</small>
+                                  
+                                  <br>
+                                  <label for="name">Nome</label>
+                                  <input type="text" name="name" id="name" class="form-control" aria-describedby="nameHelp">
+                                  <small class="form-text text-muted" id="nameHelp">Nome completo</small>
+          
+                                  <br>
+                                  <label for="password">Senha</label>
+                                  <input type="password" name="password" id="password" class="form-control" aria-describedby="passHelp">
+                                  <small class="form-text text-muted" id="passHelp">Insira sua senha:</small>
+          
+                                  <br>
+                                  <label for="retype_pass">Redigite sua senha</label>
+                                  <input type="password" name="retype_pass" id="retype_pass" class="form-control" aria-describedby="rtHelp">
+          
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                  <input type="text"  name="addAdmin"  value="addAdmin" hidden>
+                                  <input type="submit" name="add" class="btn btn-success" value="Adicionar">
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                      </div>
+                      
+                  </div><!--ROW-->
+                  <br>
+                  <div class="row">
+
+                      <div class="container">
+                          <table class="table table-bordered">
+                              <thead>
+                                  <tr>
+                                      <th scope="col">Título</th>
+                                      <th scope="col" class="text-center">Texto</th>
+                                      <th scope="col">Localização</th>
+                                      <th scope="col">Data inicial</th>
+                                      <th scope="col">Data final</th>
+                                      <th scope="col">Ações</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  {% for i in emergency: %}
+                                  <tr>
+                                      <td>{{ emergency[i]['title'] }}</td>
+                                      <td>{{ emergency[i]['text'] }}</td>
+                                      <td>{{ emergency[i]['location'] }}</td>
+                                      <td>{{ emergency[i]['date'] }}</td>
+                                      <td>{{ emergency[i]['exp_date'] }}</td>
+                                      
+                                      <td>
+                                        <form action="" method="POST">
+                                        <button class="btn btn-danger" type="submit" name="deleteEmergency" id="del" value="{{ i }}">
+                                          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                          <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                          </svg>
+                                          </button>
+                                        </form>
+                                      </td>
+
+                                  </tr>
+                                  {% endfor %}
+                              </tbody>
+                          </table>
+                      </div>
+
+                  </div><!--ROW-->
 
                 </div><!--ADMIN-->
               </div>

@@ -40,6 +40,22 @@ class FSHandler():
                 u'timestamp': firestore.SERVER_TIMESTAMP
 
             })
+    
+    def addUser(self, email, password, name):
+        db = self.db
+        doc_ref = db.collection('users')
+
+        doc_ref.add({
+            'email': email,
+            'password': password,
+            'name': name
+        })
+
+    def checkUser(self, email):
+        pass
+
+    def logUser(self, email, password):
+        pass
 
     def filterData(self, location, wtype, date):
         ### A method to get data from FireStore ###
