@@ -42,6 +42,7 @@ class FSHandler():
             })
     
     def addUser(self, email, password, name):
+        ### A method to add a new user to Users collection of FireStore ###
         db = self.db
         doc_ref = db.collection('users')
 
@@ -52,10 +53,36 @@ class FSHandler():
         })
 
     def checkUser(self, email):
-        pass
+        ### A method to check if user email is already used ###
+        db = self.db
+        doc_ref = db.collection('users')
+        stream = doc_ref.where('email', '==', email).stream()
+        
+        if stream:
+            return True
+
+        else: 
+            return False
 
     def logUser(self, email, password):
-        pass
+        ### A method to authenticate the password ###
+        db = self.db
+        doc_ref = db.collection('users')
+        stream = doc_ref.where('email', '==', email).stream()
+
+        for doc in stream:
+            data_id = doc.id
+
+        if self.checkUser(email):
+            doc_ref = db.collection('users').document(data_id)
+            doc = doc_ref.get()
+            data = doc.to_dict()
+
+            if password == data['password']:
+                return True
+        
+        return False
+        
 
     def filterData(self, location, wtype, date):
         ### A method to get data from FireStore ###
@@ -91,17 +118,8 @@ class FSHandler():
 
 if __name__ == "__main__":
 
-    wtype = 'news'
-    location = 'Wanel Ville'
-    title = 'News6'
-    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus metus dolor, placerat vel tortor quis, efficitur lobortis purus. Maecenas convallis nibh velit, ac tincidunt neque posuere vitae."
-    date = '2020-10-05'
-    exp_date = '2020-10-15'
-
+    
     fs = FSHandler()
 
-    docs = fs.getAll('news')
 
-    for doc in docs:
-        print(doc)
-        print(docs[doc]['title'])
+    
