@@ -1,5 +1,6 @@
-from app import app
-from flask import request, redirect, render_template, url_for, Blueprint
+from app import app, fs
+from flask import request, redirect, render_template, url_for, Blueprint, session
+from werkzeug.security import check_password_hash
 
 login = Blueprint('login', __name__)
 
@@ -13,10 +14,12 @@ def home():
 
         if request.form.get('login'):
 
-            user = request.form['loginuser']
+            email = request.form['loginuser']
             password = request.form['loginpass']
 
-            if user == "admin" and password == "mcpoze":
+
+            if fs.checkUser(email) and check_password_hash(fs.getUser(email)['password'], password):
+                session['user'] = email
                 return redirect(url_for("monitor"))
 
             else:

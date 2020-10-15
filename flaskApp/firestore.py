@@ -44,10 +44,9 @@ class FSHandler():
     def addUser(self, email, password, name):
         ### A method to add a new user to Users collection of FireStore ###
         db = self.db
-        doc_ref = db.collection('users')
+        doc_ref = db.collection('users').document(email)
 
-        doc_ref.add({
-            'email': email,
+        doc_ref.set({
             'password': password,
             'name': name
         })
@@ -55,34 +54,22 @@ class FSHandler():
     def checkUser(self, email):
         ### A method to check if user email is already used ###
         db = self.db
-        doc_ref = db.collection('users')
-        stream = doc_ref.where('email', '==', email).stream()
-        
-        if stream:
+        doc_ref = db.collection('users').document(email)
+        doc = doc_ref.get()
+
+        if doc.to_dict():
             return True
-
-        else: 
+        else:
             return False
-
-    def logUser(self, email, password):
-        ### A method to authenticate the password ###
+    
+    def getUser(self, email):
         db = self.db
-        doc_ref = db.collection('users')
-        stream = doc_ref.where('email', '==', email).stream()
+        doc_ref = db.collection('users').document(email)
+        doc = doc_ref.get()
+        data = doc.to_dict()
+        data['id'] = doc.id
 
-        for doc in stream:
-            data_id = doc.id
-
-        if self.checkUser(email):
-            doc_ref = db.collection('users').document(data_id)
-            doc = doc_ref.get()
-            data = doc.to_dict()
-
-            if password == data['password']:
-                return True
-        
-        return False
-        
+        return data
 
     def filterData(self, location, wtype, date):
         ### A method to get data from FireStore ###
@@ -118,8 +105,8 @@ class FSHandler():
 
 if __name__ == "__main__":
 
-    
     fs = FSHandler()
+    #fs.addUser("vini.ferr33@gmail.com", '1234', 'Vinicius')
 
 
-    
+

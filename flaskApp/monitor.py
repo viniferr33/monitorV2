@@ -1,5 +1,6 @@
 from app import app, fs
-from flask import request, redirect, render_template, url_for, Blueprint
+from flask import request, redirect, render_template, url_for, Blueprint, session
+from werkzeug.security import generate_password_hash
 
 monitor_bp = Blueprint('monitor', __name__)
 
@@ -7,12 +8,14 @@ monitor_bp = Blueprint('monitor', __name__)
 @app.route("/monitor", methods=["POST", "GET"])
 def monitor():
 
-    adminLog = {
-        'hidden': 'hidden',
-        'warning': ''
-    }
+    if 'user' not in session:
+        return redirect(url_for('home'))
 
     if request.method == "POST":
+
+        if request.form.get('logout'):
+            session.pop('user', None)
+            return redirect(url_for('home'))
 
         if request.form.get('update'):
             pass
@@ -29,6 +32,10 @@ def monitor():
             doc_id = request.form['deleteEmergency']
             fs.deleteData('emergency', doc_id)
         
+        if request.form.get('deleteAdmin'):
+            doc_id = request.form['deleteAdmin']
+            fs.deleteData('users', doc_id)
+
         if request.form.get('news'):
             title = request.form['tl_form_title']
             text = request.form['tl_form_desc']
@@ -65,12 +72,27 @@ def monitor():
             password = request.form['password']
             rtPass = request.form['retype_pass']
 
+            if fs.checkUser(email):
+                ### Handle if email already exists ###
+                pass
+            
+            else:                
+                
+                if password != rtPass:
+                    ### Handle if password and retype password isnt the same ###
+                    pass
+
+                else:
+                    fs.addUser(email, generate_password_hash(password, method='sha256'), name)
+                    
+            
+    admin = fs.getAll('users')
     reports = fs.getAll('reports')
     emergency = fs.getAll('emergency')
     warnings = fs.getAll('warnings')
     news = fs.getAll('news')
     dis_list = getDistList()
-    return render_template("monitor.html", dis_list=dis_list, news=news, emergency=emergency, warnings=warnings, reports=reports, adminLog=adminLog), 200
+    return render_template("monitor.html", dis_list=dis_list, news=news, emergency=emergency, warnings=warnings, reports=reports, admin=admin), 200
 
 
 # # A func to get all districts from a txt # # #
