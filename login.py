@@ -8,7 +8,10 @@ login = Blueprint('login', __name__)
 @app.route("/", methods=["POST", "GET"])
 def home():
 
-    msg = ""
+    msg = dict(
+        msg='',
+        hidden='hidden'
+    )
 
     if request.method == "POST":
 
@@ -23,6 +26,7 @@ def home():
                 return redirect(url_for("monitor"))
 
             else:
-                msg = "Usuário ou senha inválidos!!"
+                msg['msg'] = "Usuário ou senha inválidos!!"
+                msg['hidden'] = ''
 
     return render_template("login.html", msg=msg)
